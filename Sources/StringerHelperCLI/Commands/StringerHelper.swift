@@ -13,19 +13,10 @@ struct StringerHelper: ParsableCommand {
 
     static var configuration = CommandConfiguration(abstract: "A Stringer Helper utility.",
                                                     version: "0.1.0",
-                                                    subcommands: [Config.self])
+                                                    subcommands: [Translate.self, Publish.self, GenerateSwift.self, Cleanup.self])
 }
 
 extension StringerHelper {
-
-    struct Config: ParsableCommand {
-        
-        static var configuration = CommandConfiguration(abstract: "Remote Config",
-                                                        subcommands: [Translate.self, Publish.self, Cleanup.self, GenerateSwift.self])
-    }
-}
-
-extension StringerHelper.Config {
 
     struct Translate: ParsableCommand {
         
@@ -106,18 +97,6 @@ extension StringerHelper.Config {
         }
     }
     
-    struct Cleanup: ParsableCommand {
-        
-        static var configuration = CommandConfiguration(abstract: "Clean up")
-        
-        func run() throws {
-            cli.print("Cleaning up...")
-            RemoteConfig.languages.forEach { language in
-                try? FileManager.default.removeItem(atPath: Constants.stringerProjectURLString + language.key)
-            }
-        }
-    }
-    
     struct GenerateSwift: ParsableCommand {
         
         static var configuration = CommandConfiguration(abstract: "Generate swift file")
@@ -182,6 +161,18 @@ extension StringerHelper.Config {
             
             let url = URL(fileURLWithPath: Constants.remoteSettingsSwiftFileURLString)
             try? file.write(to: url, atomically: true, encoding: .utf8)
+        }
+    }
+    
+    struct Cleanup: ParsableCommand {
+        
+        static var configuration = CommandConfiguration(abstract: "Clean up")
+        
+        func run() throws {
+            cli.print("Cleaning up...")
+            RemoteConfig.languages.forEach { language in
+                try? FileManager.default.removeItem(atPath: Constants.stringerProjectURLString + language.key)
+            }
         }
     }
 }
