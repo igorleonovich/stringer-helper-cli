@@ -1,4 +1,4 @@
-# StringerCLI
+# StringerHelper (CLI)
 
 
 Firebase Remote Config helper for:
