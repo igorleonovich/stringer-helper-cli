@@ -1,4 +1,4 @@
-# StringerHelper (CLI)
+# Stringer Helper (CLI)
 
 
 A helper for the [Stringer](https://github.com/igorleonovich/stringer-cli) Firebase Remote Config / Crowdin translation tool.
